@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Перевод</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="col-md-6 col-md-offset-3">
+
+    <form th:action="@{/main}" method="get">
+        <button class="btn btn-md btn-success btn-block" name="main_page"
+                type="Submit">Главная страница
+        </button>
+    </form>
+
+    <form autocomplete="off"
+          th:object="${transfer}" method="post" class="form-horizontal"
+          role="form">
+        <h2>Перевод</h2>
+
+        <div class="form-group">
+            <div class="col-sm-9">
+                <h4><span class="text-success" th:utext="${messageAboutCommission}"></span></h4>
+                <label th:if="${#fields.hasErrors('numberForTransfer')}" th:errors="*{numberForTransfer}"
+                       class="validation-message"></label>
+                <input type="text" th:field="*{numberForTransfer}"
+                       placeholder="Номер карты/счёта для перевода: " class="form-control"/>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-sm-9">
+                <label th:if="${#fields.hasErrors('sum')}" th:errors="*{sum}"
+                       class="validation-message"></label>
+                <input th:action="@{/{card_id}/transfer}" name="sum" type="text"
+                       th:field="*{sum}" placeholder="Сумма перевода: " class="form-control"/>
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <div class="col-sm-9">
+                <button type="submit" class="btn-group-vertical btn btn-md btn-success">Перевести</button>
+            </div>
+        </div>
+
+        <h4><span class="text-success" th:utext="${messageAboutTransfer}"></span></h4>
+
+
+    </form>
+
+</div>
+</body>
+</html>

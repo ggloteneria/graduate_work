@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Bank account</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container">
+    <!--    <h2 th:text="${name}">Panel Group</h2>-->
+    <p>Карта: </p>
+    <div th:object="${bankAccount}">
+        <div class="panel panel-default">
+            <div class="panel-heading" th:utext="${'Владелец счёта: ' + bankAccount.getUser().getFirstName() + ' ' + bankAccount.getUser().getLastName()}">Имя владельца счета</div>
+            <div class="panel-heading" th:utext="${'Номер счёта: ' + bankAccount.getFullNumber()}">Номер счета</div>
+            <div class="panel-body" th:utext="${'Баланс: ' + bankAccount.getBalance()}">Баланс</div>
+
+            <form th:action="@{/accounts/{account_id}/transfer(account_id = ${bankAccount.id})}" method="get">
+                <button class="btn-group-vertical btn btn-md btn-success"
+                        type="Submit">Совершить перевод
+                </button>
+            </form>
+
+        </div>
+    </div>
+</div>
+</body>
+</html>

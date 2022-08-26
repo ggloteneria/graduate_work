@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Open contribution</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container">
+
+    <form th:action="@{/main}" method="get">
+        <button class="btn btn-md btn-success btn-block" name="main_page"
+                type="Submit">Главная страница
+        </button>
+    </form>
+
+    <form method="post" class="form-horizontal">
+
+        <h4>Выберите карту, с которой нужно перевести деньги на вклад: </h4>
+        <label for="card">
+            <select size="3" name="card_number" id="card">
+                <option th:each="card : ${cards}" th:value="${card.getFullNumber()}"
+                        th:text="${card.getFullNumber()} + ', баланс: ' + ${card.getBalance()}"></option>
+            </select>
+        </label>
+
+        <h4>Введите сумму пополнения вклада: </h4>
+        <div class="form-group">
+            <div class="col-sm-9">
+                <label>
+                    <input type="text" name="sum_of_open" placeholder="Сумма пополнения: " class="form-control"/>
+                </label>
+            </div>
+        </div>
+
+
+        <form method="post">
+            <input type="hidden" name="new_contribution_id" th:value="${contribution.id}"/>
+            <button name="choose" class="btn btn-success" type="submit">Открыть вклад</button>
+        </form>
+
+        <h4 th:utext="${message}"></h4>
+
+    </form>
+</div>
+</body>
+</html>

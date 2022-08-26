@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Admin applications</title>
+    <!--    <link rel="stylesheet" type="text/css" th:href="@{/css/home.css}"/>-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+<div class="container">
+
+    <form th:action="@{/main}" method="get">
+        <button class="btn btn-md btn-success btn-block" name="main_page"
+                type="Submit">Главная страница
+        </button>
+    </form>
+
+    <div class="panel-group" style="margin-top:40px">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h5>Заявки: </h5>
+            </div>
+            <div th:each="app : ${applications}">
+                <div class="panel panel-default">
+                    <div class="panel-heading" th:utext="${'Заявка от пользователя: ' + app.getUser().userName}">
+                        Пользователь который подал заявку
+                    </div>
+
+                    <form method="get" th:action="@{/admin/applications/create_credit_card}">
+                        <input type="hidden" name="application_id" th:value="${app.getApplicationId()}"/>
+                        <button class="btn btn-success" type="submit" name="success_button">Одобрить заявку</button>
+                    </form>
+
+                    <form method="POST" th:action="@{/admin/applications}">
+                        <input type="hidden" name="application_id" th:value="${app.getApplicationId()}"/>
+                        <button class="btn btn-danger" type="submit" name="block_button">Отклонить заявку</button>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <p class="admin-message-text text-center">Content available only for users with ADMIN role</p>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Take credit</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="col-md-6 col-md-offset-3">
+
+    <form th:action="@{/main}" method="get">
+        <button class="btn btn-md btn-success btn-block" name="main_page"
+                type="Submit">Main page
+        </button>
+    </form>
+
+    <form method="post" class="form-horizontal">
+
+        <h4>Выберите валюту в которой хотите взять кредит: </h4>
+
+        <label for="currency">
+            <select name="currency" id="currency">
+                <option value="RUB">Рубли</option>
+                <option value="USD">Доллары</option>
+                <option value="EUR">Евро</option>
+            </select>
+        </label>
+
+        <h4>Введите сумму которую хотите взять в кредит: </h4>
+
+        <span>Доступный лимит (в рублях):
+
+            <div th:utext="${creditCard.limitOfCard}"></div>
+
+        </span>
+
+        <div class="form-group">
+            <div class="col-sm-9">
+                <label>
+                    <input type="text" name="sumOfCredit" placeholder="Сумма кредита: " class="form-control"/>
+                </label>
+            </div>
+        </div>
+
+        <form method="post" th:action="@{/credit_cards/take_credit}">
+            <input type="hidden" name="credit_card_id" th:value="${creditCard.getId()}"/>
+            <button class="btn btn-success" type="submit" name="take_credit_button">Взять кредит</button>
+        </form>
+
+        <h4><span class="text-success" th:utext="${messageAboutCredit}"></span></h4>
+
+    </form>
+</div>
+</body>
+</html>

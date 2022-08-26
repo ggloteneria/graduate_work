@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Contributions info</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+
+
+<div class="container">
+
+    <form th:action="@{/main}" method="get">
+        <button class="btn btn-md btn-success btn-block" name="main_page"
+                type="Submit">Главная страница
+        </button>
+    </form>
+
+    <br>
+
+    <form th:action="@{/contributions/type_of_contributions}" method="get">
+        <button class="btn-group btn btn-md btn-warning" type="Submit">
+            Открыть вклад
+        </button>
+    </form>
+
+    <br>
+
+
+    <div class="panel panel-primary">
+
+        <div class="panel-heading">Ваши вклады</div>
+
+        <div th:each="contribution : ${contributions}">
+            <div class="panel panel-default">
+                <div class="panel-heading" th:utext="'Сумма вклада: ' + ${contribution.sumOfContribution}"></div>
+                <div class="panel-body" th:utext="'Срок действия вклада: ' + ${contribution.durationOfContributionInDays} + ' дней'"></div>
+                <div class="panel-body" th:utext="'Процентная ставка: ' + ${contribution.interestRate}"></div>
+                <div class="panel-body" th:utext="'Минимальная сумма вклада: ' + ${contribution.minOfSum}"></div>
+                <div class="panel-body" th:utext="'Максимальная сумма вклада: ' + ${contribution.maxOfSum}"></div>
+                <div class="panel-body" th:utext="'Пополняемый?' + ${contribution.isReplenished()}"></div>
+                <div class="panel-body" th:utext="'Закрываемый?' + ${contribution.isClosing()}"></div>
+                <div class="panel-body" th:utext="'Капитализируемый?' + ${contribution.isCapitalize()}"></div>
+                <div class="panel-body" th:utext="'Можно ли снять средства?' + ${contribution.isPossibleWithdrawFunds()}"></div>
+
+                <form method="get" th:action="@{/contributions/replenish_contribution}">
+                    <input type="hidden" name="contribution_id" th:value="${contribution.getId()}"/>
+                    <button th:if="${contribution.isReplenished()}" class="btn btn-success" type="submit">Пополнить</button>
+                </form>
+
+                <form method="get" th:action="@{/contributions/withdraw_from_contribution}">
+                    <input type="hidden" name="contribution_id" th:value="${contribution.getId()}"/>
+                    <button th:if="${contribution.isPossibleWithdrawFunds()}" class="btn btn-success" type="submit">Снять деньги с вклада</button>
+                </form>
+
+                <form method="get" th:action="@{/contributions/close_contribution}">
+                    <input type="hidden" name="contribution_id" th:value="${contribution.getId()}"/>
+                    <button th:if="${contribution.isClosing()}" class="btn btn-success" type="submit">Закрыть вклад</button>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>History of money transfers</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div class="container">
+    <!--    <h2 th:text="${name}">Panel Group</h2>-->
+    <div class="panel panel-primary">
+
+        <div class="panel-heading">
+            История переводов с карт:
+        </div>
+        <div th:each="transfer : ${transfersFromCard}">
+            <div class="panel panel-default">
+                <div class="panel-heading" th:utext="${'Перевод с карты: ' + transfer.card.getFullNumber()}">Номер
+                    карты с которой переводили
+                </div>
+                <div class="panel-body" th:utext="${'Перевод на номер карты/счёта: ' + transfer.getNumberForTransfer}">
+                    Номер куда переводили
+                </div>
+                <div class="panel-body" th:utext="${'Сумма перевода: ' + transfer.sum}">Сумма перевода</div>
+                <div class="panel-body" th:utext="${'Дата и время перевода: ' + transfer.localDateTime}">Дата перевода</div>
+
+                <div class="panel-body bg-danger text-danger" th:if="${transfer.needToCheck}">
+                    Находится на проверке
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<br>
+
+<div class="container">
+    <!--    <h2 th:text="${name}">Panel Group</h2>-->
+    <div class="panel panel-primary">
+
+        <div class="panel-heading">
+            История переводов со счетов:
+        </div>
+
+        <div th:each="transfer : ${transfersFromAccount}">
+            <div class="panel panel-default">
+                <div class="panel-heading"
+                     th:utext="${'Перевод со счёта: ' + transfer.bankAccount.getFullNumber()}">Номер счёта с
+                    которой переводили
+                </div>
+                <div class="panel-body"
+                     th:utext="${'Перевод на номер карты/счёта: ' + transfer.getNumberForTransfer}">Номер куда
+                    переводили
+                </div>
+                <div class="panel-body" th:utext="${'Сумма перевода: ' + transfer.sum}">Сумма перевода</div>
+                <div class="panel-body" th:utext="${'Дата и время перевода: ' + transfer.localDateTime}">Дата перевода</div>
+                <div class="panel-body bg-danger text-danger" th:if="${transfer.needToCheck}">
+                    Находится на проверке
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

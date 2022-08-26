@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Credit cards info</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container">
+
+    <div class="panel panel-primary">
+
+        <div class="panel-heading">Ваши кредиты:</div>
+
+        <div th:each="credit : ${credits}">
+            <div class="panel panel-default">
+
+                <div class="panel-heading" th:utext="${'Сумма кредита: ' + credit.sumOfCredit + 'RUB'}"></div>
+                <div class="panel-heading" th:utext="${'Кредит действует до: ' + credit.loanExpirationDate}"></div>
+                <div th:if="${credit.loanExpirationDate.isBefore(dateNow)}" class="panel-body bg-danger">Кредит просрочен. Произошло дополнение начисление процентов и ежедневное начисление пени</div>
+
+                <form method="get" th:action="@{/credit_cards/credits}">
+                    <input type="hidden" name="credit_id" th:value="${credit.getId()}"/>
+                </form>
+
+                <form method="get" th:action="@{/credit_cards/credits/repay}">
+                    <input type="hidden" name="credit_id" th:value="${credit.getId()}"/>
+                    <button class="btn btn-success" type="submit" name="repay_loan_button">
+                        Погасить кредит
+                    </button>
+                </form>
+
+
+            </div>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>

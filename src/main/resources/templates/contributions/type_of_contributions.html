@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Open contribution</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container">
+
+    <form th:action="@{/main}" method="get">
+        <button class="btn btn-md btn-success btn-block" name="main_page"
+                type="Submit">Главная страница
+        </button>
+    </form>
+
+
+    <div class="panel panel-primary">
+
+        <div class="panel-heading">Выберите тариф</div>
+
+        <div th:each="contribution : ${contributions}">
+
+            <div class="panel panel-default">
+                <div class="panel-body"
+                     th:utext="'Срок действия вклада в днях: ' + ${contribution.durationOfContributionInDays}"></div>
+                <div class="panel-body" th:utext="'Процентная ставка: ' + ${contribution.interestRate}"></div>
+                <div class="panel-body" th:utext="'Минимальная сумма вклада: ' + ${contribution.minOfSum}"></div>
+                <div class="panel-body" th:utext="'Максимальная сумма вклада: ' + ${contribution.maxOfSum}"></div>
+                <div class="panel-body" th:utext="'Пополняемый?' + ${contribution.isReplenished()}"></div>
+                <div class="panel-body" th:utext="'Закрываемый?' + ${contribution.isClosing()}"></div>
+                <div class="panel-body" th:utext="'Капитализируемый?' + ${contribution.isCapitalize()}"></div>
+                <div class="panel-body"
+                     th:utext="'Можно ли снять средства?' + ${contribution.isPossibleWithdrawFunds()}"></div>
+
+                <form th:action="@{/contributions/type_of_contributions/open_contribution}" method="get">
+                    <input type="hidden" name="contribution_id" th:value="${contribution.id}"/>
+                    <button name="choose" class="btn btn-success" type="submit">Выбрать этот тариф</button>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

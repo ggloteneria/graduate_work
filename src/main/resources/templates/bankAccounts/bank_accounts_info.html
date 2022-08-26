@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Bank account info</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container">
+    <form th:action="@{/accounts}" method="post">
+        <button class="btn-group btn btn-md btn-success" name="card_issue"
+                type="Submit">Создать счёт
+        </button>
+    </form>
+
+    <div class="panel panel-primary">
+
+        <div class="panel-heading">Ваши счета:</div>
+
+        <div th:each="account : ${accounts}">
+            <div class="panel panel-default">
+                <div class="panel-heading" th:utext="${'Номер счёта: ' + account.getFullNumber()}">Номер счёта</div>
+                <div class="panel-body" th:utext="${'Баланс: ' + account.getBalance()}">Баланс</div>
+
+                <form style="padding: 5px"
+                      th:action="@{/accounts/{account_id}(account_id = ${account.id})}" method="get">
+                    <button class="btn-group-vertical btn btn-md btn-primary"
+                            type="submit">Открыть информацию о счёте
+                    </button>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

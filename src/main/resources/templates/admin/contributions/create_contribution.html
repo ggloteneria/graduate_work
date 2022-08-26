@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Create contribution</title>
+<!--    <link rel="stylesheet" type="text/css" th:href="@{/css/registration.css}"/>-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <form autocomplete="off"
+                  th:object="${contribution}" method="post" class="form-horizontal"
+                  role="form">
+                <h2>Создание вклада</h2>
+
+                <div class="form-group">
+                    <div class="col-sm-9">
+                        Минимальная сумма
+                        <label th:if="${#fields.hasErrors('minOfSum')}" th:errors="*{minOfSum}"
+                               class="validation-message"></label>
+                        <input type="text" th:field="*{minOfSum}"
+                               placeholder="Минимальная сумма" class="form-control"/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-9">
+                        Максимальная сумма
+                        <label th:if="${#fields.hasErrors('maxOfSum')}" th:errors="*{maxOfSum}"
+                               class="validation-message"></label>
+                        <input type="text" th:field="*{maxOfSum}"
+                               placeholder="Максимальная сумма" class="form-control"/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-9">
+                        Срок вклада в днях
+                        <input type="text" th:field="*{durationOfContributionInDays}" placeholder="Срок вклада в днях"
+                               class="form-control"/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-9">
+                        Процентная ставка
+                        <input type="text" value="" th:field="*{interestRate}" placeholder="Процентная ставка"
+                               class="form-control"/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-9">
+                        Разрешить пополнение? (поставить галочку)
+                        <input type="checkbox" th:field="*{replenished}" placeholder="Разрешить пополнение? (поставить галочку)?"
+                               class="form-control"/>
+                    </label>
+
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-9">
+                        Разрешить досрочное закрытие?
+                        <input type="checkbox" th:field="*{closing}" placeholder="Разрешить досрочное закрытие?" class="form-control"/>
+                    </label>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-9">
+                        Разрешить капитализируемость?
+                        <input type="checkbox" th:field="*{capitalize}" placeholder="Разрешить капитализируемость?"
+                               class="form-control"/>
+                    </label>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-9">
+                        Разрешить снятие средств?
+                        <input type="checkbox" th:field="*{possibleWithdrawFunds}"
+                               placeholder="Разрешить снятие средств?" class="form-control"/>
+                    </label>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-9">
+                        <button name="create_contribution"
+                                type="submit" class="btn btn-primary btn-block">Создать вклад</button>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
