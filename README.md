@@ -4,7 +4,7 @@
 
 Ниже представлю выполненные требования и скриншоты фронта.
 
-Используемые технологии: Spring (Core, WEB, JPA, Security), Maven, MySQL, шаблонизатор Thymeleaf
+Используемые технологии: Spring (Core, WEB, JPA, Security), Hibernate, Maven, MySQL, шаблонизатор Thymeleaf
 
 - Авторизация и аутентификация:
   - View для регистрации пользователя;<br/>
