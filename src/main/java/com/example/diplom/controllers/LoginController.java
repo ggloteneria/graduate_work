@@ -43,9 +43,9 @@ public class LoginController {
     }
 
     @PostMapping(value = "/registration")
-    public String createNewUser(@Valid User user, BindingResult bindingResult,
+    public String createNewUser(@Valid UserDTO userDTO, BindingResult bindingResult,
                                 Model model) {
-//        User user = convertToUser(userDTO);
+        User user = convertToUser(userDTO);
         model.addAttribute("user", user);
         User userExists = userService.findUserByUserName(user.getUserName());
         if (userExists != null) {
@@ -65,8 +65,8 @@ public class LoginController {
         return modelMapper.map(user, UserDTO.class);
     }
 
-//    private User convertToUser(UserDTO userDTO) {
-//        return modelMapper.map(userDTO, User.class);
-//    }
+    private User convertToUser(UserDTO userDTO) {
+        return modelMapper.map(userDTO, User.class);
+    }
 
 }
